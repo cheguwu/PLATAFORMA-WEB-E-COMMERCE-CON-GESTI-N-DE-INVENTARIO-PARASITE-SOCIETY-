@@ -1,0 +1,1085 @@
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+/* --- Variables de Color --- */
+:root {
+    --color-dark-bg: #1a1a1a;
+    --color-dark-bg-light: #2a2a2a;
+    --color-dark-text: #e0e0e0;
+    --color-dark-text-light: #b0b0b0;
+    --color-accent-red: #cc0033; /* Rojo sangre / Granate */
+    --color-accent-red-hover: #ff3366;
+    --color-border: #444;
+    --color-input-bg: #333;
+    --color-placeholder: #888;
+}
+
+/* --- Base y Reseteo --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+}
+
+a {
+    color: var(--color-accent-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-accent-red-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--color-dark-text);
+    margin-bottom: 1rem;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 5px;
+    background-color: var(--color-accent-red);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-2px);
+}
+
+/* --- Header --- */
+header {
+    background-color: var(--color-dark-bg-light);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-logo {
+    max-height: 60px; /* Ajusta el tamaño de tu logo */
+    width: auto;
+    filter: brightness(0.9); /* Pequeño ajuste para logos claros en fondos oscuros */
+}
+
+.header-icons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.icon-link {
+    font-size: 1.8rem;
+    color: var(--color-dark-text-light);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+    color: var(--color-accent-red);
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-accent-red);
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    padding: 3px 7px;
+    min-width: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--color-dark-bg);
+    padding: 0.8rem 5%;
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.nav-links li a {
+    color: var(--color-dark-text);
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--color-accent-red);
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+/* --- Popups (Login/Register & Cart) --- */
+.hidden-checkbox {
+    display: none;
+}
+
+.login-popup,
+.cart-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hidden-checkbox:checked + .login-popup,
+.hidden-checkbox:checked + .cart-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-content,
+.cart-content {
+    background-color: var(--color-dark-bg-light);
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    text-align: center;
+    animation: fadeInScale 0.4s ease forwards;
+    border: 1px solid var(--color-border);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: var(--color-dark-text-light);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover {
+    color: var(--color-accent-red);
+}
+
+.login-popup-logo {
+    max-height: 80px;
+    margin-bottom: 20px;
+}
+
+.login-form h2,
+.cart-content h2 {
+    color: var(--color-dark-text);
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-input-bg);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+}
+
+.input-group .input-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    filter: invert(0.7); /* Para que los iconos se vean en fondos oscuros */
+}
+
+.input-group input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--color-dark-text);
+    padding: 8px 0;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-group input::placeholder {
+    color: var(--color-placeholder);
+}
+
+.btn-login,
+.btn-checkout {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    padding: 12px;
+}
+
+.forgot-password-popup a,
+.toggle-link a {
+    color: var(--color-accent-red);
+    font-size: 0.95rem;
+}
+
+.toggle-link {
+    margin-top: 15px;
+    color: var(--color-dark-text-light);
+    font-size: 0.95rem;
+}
+
+/* Cart Specific Styles */
+#cart-items {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 15px;
+}
+
+.empty-cart-message {
+    color: var(--color-placeholder);
+    font-style: italic;
+    padding: 20px;
+}
+
+.cart-summary {
+    border-top: 1px solid var(--color-border);
+    padding-top: 15px;
+    text-align: right;
+}
+
+.cart-summary p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--color-dark-text);
+}
+
+#cart-subtotal {
+    color: var(--color-accent-red);
+    font-size: 1.3rem;
+}
+
+/* --- Sections (General) --- */
+section {
+    padding: 80px 5%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.section-content {
+    max-width: 900px;
+    width: 100%;
+}
+
+.section-content h2,
+#catalogo h1 { /* Aplicar el estilo de título a ambos */
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: var(--color-accent-red);
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-content h2::after,
+#catalogo h1::after { /* Aplicar el subrayado a ambos */
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: var(--color-dark-text);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+
+.section-content p {
+    font-size: 1.1rem;
+    color: var(--color-dark-text-light);
+    margin-bottom: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    color: white; /* Asegúrate de que el texto contraste con la imagen */
+}
+
+.hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4) grayscale(0.2); /* Oscurece y da un toque más oscuro a la imagen */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content h1 {
+    font-size: 3.8rem;
+    margin-bottom: 25px;
+    line-height: 1.2;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero-button {
+    display: inline-block;
+    background-color: var(--color-accent-red);
+    color: white;
+    padding: 15px 35px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(204, 0, 51, 0.4);
+}
+
+.hero-button:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 51, 102, 0.5);
+}
+
+/* --- Info Section (Nosotros) --- */
+.info-section {
+    background-color: var(--color-dark-bg-light);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* --- Catálogo (Nueva estructura) --- */
+/* Estilo del título Catálogo */
+body > h1 { /* Apuntamos al H1 que está directamente dentro del body para el título del catálogo */
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2.5rem;
+    margin-top: 40px; /* Espacio superior */
+    margin-bottom: 30px;
+    color: var(--color-accent-red);
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 10px;
+    text-align: center; /* Centrar el título */
+}
+
+body > h1::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: var(--color-dark-text);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+
+.catalogo-container {
+    padding: 40px 5%; /* Padding para el contenedor principal de los productos */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center; /* Centra las tarjetas si no llenan la fila completa */
+    align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
+    background-color: var(--color-dark-bg); /* Fondo de la sección de catálogo */
+}
+
+/* Estilos para un producto individual (tarjeta) */
+.producto {
+    background-color: var(--color-dark-bg-light);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Alinea el texto a la izquierda dentro de la tarjeta */
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.producto-img {
+    width: 100%;
+    height: 280px; /* Altura fija para la imagen */
+    object-fit: cover; /* Ajusta la imagen sin distorsionarla */
+    display: block;
+    border-bottom: 1px solid var(--color-border);
+    filter: saturate(0.9) brightness(0.9); /* Pequeños ajustes para la estética oscura */
+}
+
+.producto h3 {
+    font-size: 1.5rem;
+    color: var(--color-dark-text);
+    margin: 15px 15px 10px 15px; /* Espacio dentro de la tarjeta */
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.producto p {
+    font-size: 0.95rem;
+    color: var(--color-dark-text-light);
+    margin: 0 15px 15px 15px;
+    flex-grow: 1; /* Permite que la descripción ocupe el espacio restante */
+}
+
+.producto span { /* Estilo para el precio */
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-accent-red);
+    margin: 0 15px 15px 15px;
+    display: block; /* Para que ocupe toda la línea y el margen funcione */
+    text-align: right; /* Alinea el precio a la derecha */
+}
+
+.btn-agregar {
+    width: calc(100% - 30px); /* Ocupa el ancho de la tarjeta menos el padding */
+    margin: 0 15px 15px 15px;
+    padding: 12px;
+    font-size: 1rem;
+    align-self: center; /* Centra el botón si hay espacio */
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--color-dark-bg-light);
+    color: var(--color-dark-text-light);
+    text-align: center;
+    padding: 2rem 5%;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.9rem;
+}
+
+.footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .catalogo-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    .producto-img {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem 3%;
+        gap: 1rem;
+    }
+
+    .header-logo {
+        max-height: 50px;
+    }
+
+    .navbar {
+        padding: 0.8rem 3%;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links li a {
+        font-size: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero-button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+
+    section {
+        padding: 60px 3%;
+    }
+
+    .section-content h2,
+    body > h1 {
+        font-size: 2rem;
+    }
+
+    .catalogo-container {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 30px 3%;
+    }
+    .producto-img {
+        height: 220px;
+    }
+
+    .login-content,
+    .cart-content {
+        padding: 25px 30px;
+    }
+
+    .login-form h2,
+    .cart-content h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 0.8rem 2%;
+    }
+
+    .header-logo {
+        max-height: 45px;
+    }
+
+    .header-icons {
+        gap: 1rem;
+    }
+
+    .icon-link {
+        font-size: 1.5rem;
+    }
+
+    .navbar {
+        padding: 0.5rem 2%;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 40px 2%;
+    }
+
+    .section-content h2,
+    body > h1 {
+        font-size: 1.8rem;
+    }
+
+    .catalogo-container {
+        grid-template-columns: 1fr; /* Una columna en pantallas muy pequeñas */
+        gap: 15px;
+        padding: 20px 2%;
+    }
+    .producto-img {
+        height: 200px;
+    }
+
+    .producto h3 {
+        font-size: 1.3rem;
+        margin: 10px;
+    }
+    .producto p {
+        font-size: 0.9rem;
+        margin: 0 10px 10px 10px;
+    }
+    .producto span {
+        font-size: 1.5rem;
+        margin: 0 10px 10px 10px;
+    }
+    .btn-agregar {
+        width: calc(100% - 20px);
+        margin: 0 10px 10px 10px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .login-content,
+    .cart-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .input-group input {
+        font-size: 0.9rem;
+    }
+
+    .btn-login,
+    .btn-checkout {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+/* --- Estilos para la página de Checkout (checkout.html) --- */
+
+.header-checkout {
+    background-color: var(--color-dark-bg-light);
+    color: var(--color-dark-text);
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 40px;
+}
+
+.header-checkout h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: var(--color-accent-red); /* Título principal en rojo acento */
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.checkout-container {
+    max-width: 900px; /* Un poco más ancho para los formularios */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--color-dark-bg-light);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-border);
+    color: var(--color-dark-text); /* Asegura que todo el texto sea legible */
+}
+
+.checkout-container h1 { /* Título principal dentro del contenedor */
+    font-size: 2rem;
+    text-align: center;
+    color: var(--color-dark-text);
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.checkout-container h1::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 3px;
+    background: var(--color-accent-red);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-dark-bg); /* Fondo más oscuro para las secciones */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-section h2 {
+    font-size: 1.6rem;
+    color: var(--color-accent-red);
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-dark-text-light);
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background-color: var(--color-input-bg);
+    color: var(--color-dark-text);
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group select:focus {
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 0 2px rgba(204, 0, 51, 0.3);
+}
+
+.form-group input::placeholder {
+    color: var(--color-placeholder);
+}
+
+/* Estilos para radios de método de pago */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.payment-methods .radio-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background-color: var(--color-input-bg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.payment-methods .radio-group label:hover {
+    background-color: #383838;
+    border-color: var(--color-accent-red);
+}
+
+.payment-methods input[type="radio"] {
+    -webkit-appearance: none; /* Oculta el radio nativo */
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-dark-text-light);
+    border-radius: 50%;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.payment-methods input[type="radio"]:checked {
+    border-color: var(--color-accent-red);
+}
+
+.payment-methods input[type="radio"]:checked::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-accent-red);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+.order-summary {
+    margin-top: 40px;
+    padding: 25px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background-color: var(--color-dark-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-summary h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: var(--color-accent-red);
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--color-border); /* Borde punteado oscuro */
+    color: var(--color-dark-text-light);
+    font-size: 0.95rem;
+}
+
+.order-item span:last-child {
+    font-weight: 600;
+    color: var(--color-dark-text);
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--color-accent-red); /* Línea gruesa roja */
+    color: var(--color-dark-text);
+}
+
+#checkout-total {
+    color: var(--color-accent-red);
+    font-size: 1.4em; /* Más grande para el total */
+}
+
+.btn-place-order {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    background-color: var(--color-accent-red); /* Usamos el rojo principal para el botón de confirmar */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.3em;
+    cursor: pointer;
+    margin-top: 40px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(204, 0, 51, 0.4);
+}
+
+.btn-place-order:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 51, 102, 0.5);
+}
+
+/* Mensaje de carrito vacío */
+.empty-message {
+    text-align: center;
+    color: var(--color-placeholder);
+    font-style: italic;
+    padding: 20px;
+}
+
+
+/* --- Responsive Design para Checkout --- */
+@media (max-width: 768px) {
+    .header-checkout {
+        padding: 1rem 0;
+        margin-bottom: 25px;
+    }
+    .header-checkout h1 {
+        font-size: 2rem;
+    }
+
+    .checkout-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .checkout-container h1 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    .form-section {
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+    .form-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .payment-methods .radio-group label {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+    .payment-methods input[type="radio"] {
+        width: 16px;
+        height: 16px;
+    }
+    .payment-methods input[type="radio"]:checked::before {
+        width: 8px;
+        height: 8px;
+    }
+
+    .order-summary {
+        margin-top: 30px;
+        padding: 18px;
+    }
+    .order-summary h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+    .order-item {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+    }
+    .order-total {
+        font-size: 1.1em;
+        margin-top: 15px;
+        padding-top: 10px;
+    }
+    #checkout-total {
+        font-size: 1.2em;
+    }
+
+    .btn-place-order {
+        padding: 15px;
+        font-size: 1.1em;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-checkout {
+        padding: 1rem 0;
+        margin-bottom: 20px;
+    }
+    .header-checkout h1 {
+        font-size: 1.8rem;
+    }
+
+    .checkout-container {
+        margin: 15px auto;
+        padding: 15px;
+    }
+    .checkout-container h1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .form-section {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .form-section h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .payment-methods .radio-group label {
+        font-size: 0.85rem;
+    }
+
+    .order-summary {
+        margin-top: 25px;
+        padding: 15px;
+    }
+    .order-summary h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    .order-item {
+        font-size: 0.85rem;
+        margin-bottom: 5px;
+        padding-bottom: 4px;
+    }
+    .order-total {
+        font-size: 1em;
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+    #checkout-total {
+        font-size: 1.1em;
+    }
+
+    .btn-place-order {
+        padding: 12px;
+        font-size: 1em;
+        margin-top: 25px;
+    }
+}

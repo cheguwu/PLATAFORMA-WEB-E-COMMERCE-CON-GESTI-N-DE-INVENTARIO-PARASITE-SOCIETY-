@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Administración - Parasite Society</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Panel de Administración</h1>
+
+    <section>
+      <h2>Agregar nuevo producto</h2>
+<form id="agregar-producto-form" enctype="multipart/form-data">
+  <input type="text" name="nombre" placeholder="Nombre del producto" required>
+  <input type="text" name="descripcion" placeholder="Descripción" required>
+  <input type="number" name="precio" placeholder="Precio" required>
+  <input type="file" name="imagen" accept="image/*" required>
+  <button type="submit">Agregar producto</button>
+</form>
+
+
+    </section>
+
+    <hr>
+
+    <section>
+      <h2>Listado de Productos</h2>
+      <table id="product-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio (S/)</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="product-list">
+          <!-- Productos se insertan aquí -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="js/admin-logic.js"></script>
+</body>
+</html>

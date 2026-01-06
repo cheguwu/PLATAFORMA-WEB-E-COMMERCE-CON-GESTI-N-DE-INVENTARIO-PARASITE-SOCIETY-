@@ -1,0 +1,349 @@
+/* Importar fuentes (igual que en estilos.css para mantener la coherencia) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+/* --- Variables de Color (repetimos para facilidad de mantenimiento si es un archivo separado) --- */
+:root {
+    --color-dark-bg: #1a1a1a;
+    --color-dark-bg-light: #2a2a2a;
+    --color-dark-text: #e0e0e0;
+    --color-dark-text-light: #b0b0b0;
+    --color-accent-red: #cc0033; /* Rojo sangre / Granate */
+    --color-accent-red-hover: #ff3366;
+    --color-border: #444;
+    --color-input-bg: #333;
+    --color-placeholder: #888;
+    --color-table-header: #3a3a3a;
+    --color-table-row-hover: #303030;
+}
+
+/* --- Base y Reseteo --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding: 20px; /* Pequeño padding general para que no esté pegado al borde */
+}
+
+a {
+    color: var(--color-accent-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-accent-red-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--color-dark-text);
+    margin-bottom: 1rem;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 5px;
+    background-color: var(--color-accent-red);
+    color: white;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: var(--color-accent-red-hover);
+    transform: translateY(-2px);
+}
+
+/* --- Contenedor Principal --- */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: var(--color-dark-bg-light);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border: 1px solid var(--color-border);
+}
+
+.container h1 {
+    font-size: 2.8rem;
+    color: var(--color-accent-red);
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.container h1::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    background: var(--color-dark-text);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+}
+
+/* --- Secciones --- */
+section {
+    background-color: var(--color-dark-bg);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+section h2 {
+    font-size: 1.8rem;
+    color: var(--color-dark-text);
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Formularios --- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input[type="text"],
+form input[type="number"],
+form textarea,
+form input[type="file"] {
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: var(--color-dark-text);
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form textarea:focus,
+form input[type="file"]:focus {
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 0 2px rgba(204, 0, 51, 0.3);
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: var(--color-placeholder);
+}
+
+form textarea {
+    min-height: 100px;
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+form button[type="submit"] {
+    width: auto; /* Permite que el botón se ajuste a su contenido */
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+    margin-top: 10px;
+}
+
+/* Estilo para el input file */
+form input[type="file"] {
+    padding: 8px 15px; /* Más compacto */
+    cursor: pointer;
+}
+
+/* --- Separador --- */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 40px 0;
+}
+
+/* --- Tabla de Productos --- */
+.table-container {
+    overflow-x: auto; /* Para tablas que pueden desbordarse en móviles */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--color-dark-bg-light);
+    border-radius: 8px;
+    overflow: hidden; /* Asegura que las esquinas redondeadas se apliquen */
+}
+
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-dark-text);
+}
+
+table th {
+    background-color: var(--color-table-header);
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: var(--color-dark-text-light);
+}
+
+table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+table tbody tr:hover {
+    background-color: var(--color-table-row-hover);
+    transition: background-color 0.2s ease;
+}
+
+table td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid var(--color-border);
+}
+
+table .action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+table .action-buttons button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    background-color: #555; /* Color por defecto para acciones */
+    color: white;
+}
+
+table .action-buttons .edit-btn {
+    background-color: #007bff; /* Azul para editar */
+}
+
+table .action-buttons .delete-btn {
+    background-color: var(--color-accent-red); /* Rojo para eliminar */
+}
+
+table .action-buttons button:hover {
+    opacity: 0.9;
+    transform: none; /* Quitamos el translateY para los botones pequeños */
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 15px auto;
+    }
+
+    .container h1 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+
+    section {
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    section h2 {
+        font-size: 1.6rem;
+    }
+
+    form input,
+    form textarea,
+    form button[type="submit"] {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    table td img {
+        width: 50px;
+        height: 50px;
+    }
+
+    table .action-buttons button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    .container h1 {
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    section {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    section h2 {
+        font-size: 1.4rem;
+    }
+
+    form button[type="submit"] {
+        width: 100%; /* Botones de formulario al 100% de ancho en móviles */
+        align-self: center;
+    }
+
+    table {
+        font-size: 0.85rem;
+    }
+
+    table th,
+    table td {
+        padding: 8px;
+    }
+
+    table td img {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Ocultar algunas columnas en pantallas muy pequeñas si la tabla es demasiado ancha */
+    table thead th:nth-child(4), /* Tallas */
+    table tbody td:nth-child(4) {
+        display: none;
+    }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Parasite Society</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header-checkout">
+        <h1>Confirmar Compra</h1>
+    </header>
+
+    <div class="checkout-container">
+        <h1>Detalles de Envío y Pago</h1>
+
+        <form id="checkoutForm">
+            <div class="form-section">
+                <h2>Información de Envío</h2>
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
+                <div class="form-group">
+                    <label for="ciudad">Ciudad:</label>
+                    <input type="text" id="ciudad" name="ciudad" required>
+                </div>
+                <div class="form-group">
+                    <label for="provincia">Provincia:</label>
+                    <input type="text" id="provincia" name="provincia" required>
+                </div>
+                <div class="form-group">
+                    <label for="codigoPostal">Código Postal:</label>
+                    <input type="text" id="codigoPostal" name="codigoPostal" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Método de Pago</h2>
+                <div class="payment-methods">
+                    <div class="form-group radio-group">
+                        <label>
+                            <input type="radio" name="metodoPago" value="tarjeta" checked> Tarjeta de Crédito/Débito
+                        </label>
+                    </div>
+                    <div class="form-group radio-group">
+                        <label>
+                            <input type="radio" name="metodoPago" value="paypal"> PayPal
+                        </label>
+                    </div>
+                    <div class="form-group radio-group">
+                        <label>
+                            <input type="radio" name="metodoPago" value="contraEntrega"> Pago Contra Entrega (solo lima)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2>Resumen del Pedido</h2>
+                <div id="checkout-order-items">
+                    <p>Cargando ítems...</p>
+                </div>
+                <div class="order-total">
+                    <span>Total:</span>
+                    <span id="checkout-total">s/0.00</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-place-order">Confirmar Pedido</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Parasite Society - Todos los derechos reservados</p>
+        <p>Síguenos en Instagram: @parasitesociety</p>
+    </footer>
+
+    <script>
+        // JavaScript para cargar los items del carrito y el total en la página de checkout
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const checkoutOrderItems = document.getElementById('checkout-order-items');
+            const checkoutTotalSpan = document.getElementById('checkout-total');
+            let total = 0;
+
+            if (cart.length === 0) {
+                checkoutOrderItems.innerHTML = '<p class="empty-message">Tu carrito está vacío. Por favor, regresa a la tienda.</p>';
+            } else {
+                checkoutOrderItems.innerHTML = ''; // Limpiar mensaje de carga
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('order-item');
+                    itemDiv.innerHTML = `
+                        <span>${item.name} (Talla: ${item.size || 'N/A'}) x ${item.quantity}</span>
+                        <span>s/${itemTotal.toFixed(2)}</span>
+                    `;
+                    checkoutOrderItems.appendChild(itemDiv);
+                });
+            }
+            checkoutTotalSpan.textContent = `s/${total.toFixed(2)}`;
+
+            // Manejar el envío del formulario (ejemplo básico)
+            const checkoutForm = document.getElementById('checkoutForm');
+            checkoutForm.addEventListener('submit', (e) => {
+                e.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+                const formData = new FormData(checkoutForm);
+                const data = {};
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+
+                console.log("Datos de envío y pago:", data);
+                console.log("Carrito a procesar:", cart);
+
+                alert('¡Pedido realizado con éxito! Gracias por tu compra.');
+
+                // Opcional: Limpiar el carrito después de un pedido exitoso
+                localStorage.removeItem('cart');
+
+                // Redirigir a una página de confirmación o a la página principal
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

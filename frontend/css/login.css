@@ -1,0 +1,485 @@
+/* frontend/css/login.css */
+
+/* --- Estilos para la "cajita" de login/registro (para login.html y register.html si fueran paginas separadas) --- */
+/* NOTA: Estos estilos aplican para la "caja" principal de login/registro. Si solo usas popups, algunos podrían no ser estrictamente necesarios, pero los mantenemos para consistencia. */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #232324a1; /* Fondo semi-transparente oscuro */
+    padding: 20px;
+}
+
+.login-box {
+    background-color: #000000; /* Fondo negro */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-box .logo {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.login-box h2 {
+    color: #fff; /* Blanco para el título de la caja */
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    width: calc(100% - 50px);
+    padding: 12px 12px 12px 45px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 1.05em;
+    color: #495057; /* Color de texto del input */
+    transition: border-color 0.3s ease;
+    background-color: #f8f8f8; /* Fondo claro para los inputs */
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-group .input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.15em;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.register-link {
+    margin-top: 25px;
+    font-size: 0.95em;
+    color: #6c757d;
+}
+
+.register-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* --- Estilos para el Popup de Login/Registro (usado en index.html) --- */
+.hidden-checkbox {
+    display: none; /* Oculta el checkbox que controla la visibilidad del popup */
+}
+
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    visibility: hidden; /* Oculto por defecto */
+    opacity: 0; /* Transparente por defecto */
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Cuando el checkbox está marcado, el popup se hace visible */
+.hidden-checkbox:checked + .login-popup {
+    visibility: visible;
+    opacity: 1;
+}
+
+.login-content {
+    background-color: #1a1a1a; /* Fondo oscuro del contenido del popup */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    transform: scale(0.9); /* Efecto de escala al abrir */
+    transition: transform 0.3s ease-in-out;
+    color: white; /* Color de texto general del popup */
+}
+
+.hidden-checkbox:checked + .login-popup .login-content {
+    transform: scale(1); /* Escala normal al abrir */
+}
+
+.login-content .close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2em;
+    color: #888; /* Color de la 'X' de cerrar */
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.login-content .close-button:hover {
+    color: white;
+}
+
+.login-popup-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 25px;
+}
+
+.login-content h2 {
+    font-size: 2em;
+    margin-bottom: 25px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-form-popup .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-form-popup label {
+    display: block;
+    font-size: 1.05em;
+    margin-bottom: 8px;
+    color: #CCCCCC;
+    font-weight: bold;
+}
+
+.login-form-popup input[type="text"],
+.login-form-popup input[type="email"],
+.login-form-popup input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #333; /* Fondo de inputs en popup */
+    color: #FFFFFF;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.login-form-popup input[type="text"]:focus,
+.login-form-popup input[type="email"]:focus,
+.login-form-popup input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.login-button-popup {
+    background-color: #007bff;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.login-button-popup:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.forgot-password-popup,
+.toggle-link { /* Usamos toggle-link para los enlaces de alternancia */
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.forgot-password-popup a,
+.toggle-link a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password-popup a:hover,
+.toggle-link a:hover {
+    color: #8ac0ff;
+    text-decoration: underline;
+}
+
+
+/* --- Estilos para el Popup del Carrito (cart-popup) --- */
+.cart-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Cuando el checkbox del carrito está marcado, el popup se hace visible */
+.hidden-checkbox:checked + .cart-popup {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cart-content {
+    background-color: #1a1a1a; /* Fondo oscuro similar al popup de login */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    width: 90%;
+    max-width: 500px; /* Un poco más ancho que el login si es necesario */
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.3s ease-in-out;
+    color: white;
+    display: flex; /* Para organizar el contenido verticalmente */
+    flex-direction: column;
+    max-height: 80vh; /* Limita la altura del popup del carrito */
+    overflow-y: auto; /* Permite scroll si hay muchos items */
+}
+
+.hidden-checkbox:checked + .cart-popup .cart-content {
+    transform: scale(1);
+}
+
+.cart-content h2 {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #444; /* Línea de separación */
+    padding-bottom: 15px;
+}
+
+#cart-items {
+    flex-grow: 1; /* Permite que ocupe el espacio disponible */
+    margin-bottom: 20px;
+    text-align: left; /* Alinea el texto de los ítems a la izquierda */
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #333; /* Fondo para cada ítem del carrito */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cart-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    color: #ccc;
+    font-size: 0.95em;
+}
+
+.cart-item-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0 15px;
+}
+
+.cart-item-quantity-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%; /* Botones redondos */
+    width: 25px;
+    height: 25px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cart-item-quantity-controls button:hover {
+    background-color: #0056b3;
+}
+
+.cart-item-quantity-controls .quantity {
+    font-size: 1.1em;
+    font-weight: bold;
+    min-width: 20px; /* Asegura un ancho mínimo */
+    text-align: center;
+}
+
+.remove-item-btn {
+    background-color: #dc3545; /* Rojo para eliminar */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.remove-item-btn:hover {
+    background-color: #c82333;
+}
+
+.cart-summary {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: right;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.cart-summary p {
+    margin-bottom: 15px;
+}
+
+.cart-summary .btn-checkout {
+    background-color: #28a745; /* Botón de checkout verde */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-summary .btn-checkout:hover {
+    background-color: #218838;
+}
+
+.empty-cart-message {
+    text-align: center;
+    color: #ccc;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 768px) {
+    /* Ajustes específicos para pantallas medianas */
+    .cart-content {
+        max-width: 95%;
+        padding: 20px;
+    }
+    .cart-item {
+        flex-wrap: wrap; /* Permite que los elementos del ítem se envuelvan */
+        justify-content: center;
+    }
+    .cart-item-img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .cart-item-details, .cart-item-quantity-controls {
+        text-align: center;
+        width: 100%;
+        margin: 5px 0;
+    }
+    .remove-item-btn {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajustes específicos para pantallas pequeñas */
+    .cart-content h2 {
+        font-size: 1.8em;
+    }
+    .cart-summary {
+        font-size: 1.1em;
+    }
+    /* El login-box y login-content también se adaptarán por sus propios max-width */
+    .login-box, .login-content {
+        padding: 25px;
+    }
+    .login-box h2, .login-content h2 {
+        font-size: 1.8em;
+    }
+    .input-group input {
+        padding: 10px 10px 10px 40px;
+        font-size: 1em;
+    }
+    .btn-login, .login-button-popup {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
